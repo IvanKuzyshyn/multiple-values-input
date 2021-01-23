@@ -1,3 +1,4 @@
 import { MultipleValuesInput } from "./MultipleValuesInput/MultipleValuesInput";
+import "./MultipleValuesInput/MultipleValuesInput.scss"
 
-export default MultipleValuesInput
+module.exports = MultipleValuesInput
