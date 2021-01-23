@@ -39,9 +39,6 @@ const config = {
             '.js'
         ]
     },
-    devServer: {
-        publicPath: './dist/'
-    },
     watchOptions: {
         aggregateTimeout: 200,
         poll: 1000
