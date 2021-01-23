@@ -1,8 +1,5 @@
-const webpack = require('webpack');
 const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const config = {
     entry: './src/index.ts',
@@ -33,18 +30,20 @@ const config = {
         ]
     },
     plugins: [
-        new CopyPlugin({
-            patterns: [{ from: 'src/index.html' }],
-        }),
         new MiniCssExtractPlugin(),
-        new CleanWebpackPlugin()
     ],
     resolve: {
         extensions: [
-            '.tsx',
             '.ts',
             '.js'
         ]
+    },
+    devServer: {
+        publicPath: './dist/'
+    },
+    watchOptions: {
+        aggregateTimeout: 200,
+        poll: 1000
     }
 };
 
