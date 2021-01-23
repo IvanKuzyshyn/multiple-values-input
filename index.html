@@ -3,10 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Ivan Kuzyshyn | Multiple Values Input usage examples</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet" />
     <link rel="stylesheet" href="./dist/main.css">
+    <style>
+        body {
+            font-family: 'Open Sans', serif;
+            font-size: 14px;
+        }
+
+        .container {
+            display: flex;
+            background-color: #FFFFFF;
+            padding: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .example {
+            width: 540px;
+            height: auto;
+            background: #FFFFFF;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        .example-body {
+            padding: 32px 50px 24px;
+            background: #F8F8F7;
+        }
+        .example-footer {
+            padding: 24px 50px 32px;
+        }
+        .button-group button + button {
+            margin-left: 16px;
+        }
+        button {
+            background: #4262FF;
+            border-radius: 6px;
+            padding: 8px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 400;
+            border: none;
+            outline: none;
+        }
+        button:hover {
+            cursor: pointer;
+            background: #2541ff;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>TEST PAGE</h1>
+    <div class="container">
+        <div class="example">
+            <div class="example-body">
+                <h1>Share Board name with others</h1>
+                <div id="emails-input"></div>
+            </div>
+            <div class="example-footer">
+                <div class="button-group">
+                    <button id="add-email" type="button" class="action-button">Add email</button>
+                    <button id="get-emails-count" type="button" class="action-button">Get emails count</button>
+                </div>
+            </div>
+        </div>
+        <div class="example">
+            <div class="example-body">
+                <h1>IP addresses numbers example</h1>
+                <div id="ip-addresses-input"></div>
+            </div>
+        </div>
+        <div class="example">
+            <div class="example-body">
+                <h1>Dynamic example</h1>
+                <div id="dynamic-input"></div>
+            </div>
+            <div class="example-footer">
+                <div class="button-group">
+                    <button id="toggle-example" type="button" class="action-button">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="./dist/bundle.js"></script>
     <script src="./examples/example.js"></script>
 </body>
