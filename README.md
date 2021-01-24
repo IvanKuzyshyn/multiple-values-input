@@ -3,6 +3,17 @@
 Small and reusable component with zero dependencies which supports adding
 multiple values, providing validation and light interaction API.
 
+[Try it now](https://ivankuzyshyn.github.io/multiple-values-input/)
+
+# Features
+- [x] can be easily used in any form or independently
+- [x] independent styles and zero packages dependencies
+- [x] blocks creates by pressing `Enter`, `Comma`, losing focus or direct text paste
+- [x] width and height relies on parent's sizes
+- [x] input automatically scrolls if to much content inserted
+- [x] it's possible to use many inputs fields independently
+- [x] supports all latest browsers and IE 11
+
 # Scripts
 
 - `npm start` - runs build in dev mode with updates watcher
@@ -52,7 +63,7 @@ const input = new MultipleValuesInput(node, options)
 
 | Option      | Format                      | Default                          | Usage                                                                                                                 |
 | ----------- | --------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| values      | `string[]`                  | `[]`                             | Enables to set the initial list of blocks to the input                                                                |
+| values      | `string[]`                  | `[]`                             | Enables to set the initial list of blocks to the input, please consider input values will be automatically validated                                                                |
 | validator   | `(item: string) => boolean` | `item => item.trim().length > 0` | Enable to set items validator, can be use to create custom inputs behavior, like emails input, IP addresses input etc |
 | placeholder | `string`                    | `Enter item`                     | Enables to set custom placeholder for input field                                                                     |
 
