@@ -50,12 +50,14 @@ $red: #D92929;
     height: 24px;
     display: flex;
     align-items: center;
+    max-width: calc(100% - 18px);
 
     &--invalid {
       background-color: transparent;
       border-radius: 0;
       border-bottom: 1px dashed $red;
       padding: 0;
+      max-width: 100%;
     }
 
     span {
@@ -63,6 +65,11 @@ $red: #D92929;
       line-height: 24px;
       font-weight: 400;
       text-align: right;
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     button {
