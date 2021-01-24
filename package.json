@@ -10,7 +10,7 @@
     "test": "jest ./src/**/*.test.ts",
     "test:coverage": "jest ./src/**/*.test.ts --coverage",
     "prettier:check": "prettier --check './*.js|docs/**/*.{js,ts,tsx,sass,css,md}|./src/**/*.{js,ts,tsx,sass,css,md}'",
-    "prettier:fix": "prettier --write --list-different './*.js|docs/**/*.{js,ts,tsx,sass,css,md}|./src/**/*.{js,ts,tsx,sass,css,md}'"
+    "prettier:fix": "prettier --write --list-different './*config.js|docs/**/*.{js,ts,tsx,sass,css,md}|./src/**/*.{js,ts,tsx,sass,css,md}'"
   },
   "repository": {
     "type": "git",
