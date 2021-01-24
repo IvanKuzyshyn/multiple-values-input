@@ -65,6 +65,7 @@ export class MultipleValuesInput {
     }
     const items = this.setItemsByValue(this.options.values)
     this.root.classList.add(classes.HIDDEN_ROOT)
+    this.root.dataset.testid = 'root'
 
     this.root.parentNode.insertBefore(this.container, this.root.nextSibling)
     this.container.appendChild(this.input)
@@ -73,10 +74,10 @@ export class MultipleValuesInput {
   }
 
   private unmount() {
-    this.container.removeEventListener('click', (event) => this.handleBlockRemove(event))
-    this.input.removeEventListener('keyup', (event) => this.handleKeyup(this.input, event))
-    this.input.removeEventListener('focusout', () => this.handleFocusout(this.input))
-    this.input.removeEventListener('paste', (event) => this.handlePaste(this.input, event))
+    this.container.removeEventListener('click', this.handleBlockRemove)
+    this.input.removeEventListener('keyup', this.handleKeyup)
+    this.input.removeEventListener('focusout', this.handleFocusout)
+    this.input.removeEventListener('paste', this.handlePaste)
     const parent = this.container.parentNode
     this.root.classList.remove(classes.HIDDEN_ROOT)
     parent?.appendChild(this.root)
@@ -86,7 +87,8 @@ export class MultipleValuesInput {
   private createContainerElement(): HTMLDivElement {
     const container = document.createElement('div')
     container.classList.add(classes.CONTAINER)
-    container.addEventListener('click', (event) => this.handleBlockRemove(event))
+    container.dataset.testid = 'container'
+    container.addEventListener('click', this.handleBlockRemove.bind(this))
 
     return container
   }
@@ -97,9 +99,9 @@ export class MultipleValuesInput {
     input.classList.add(classes.ITEM)
     input.type = 'text'
     input.placeholder = this.options.placeholder
-    input.addEventListener('keyup', (event) => this.handleKeyup(input, event))
-    input.addEventListener('focusout', () => this.handleFocusout(input))
-    input.addEventListener('paste', (event) => this.handlePaste(input, event))
+    input.addEventListener('keyup', this.handleKeyup.bind(this))
+    input.addEventListener('focusout', this.handleFocusout.bind(this))
+    input.addEventListener('paste', this.handlePaste.bind(this))
 
     return input
   }
@@ -168,23 +170,23 @@ export class MultipleValuesInput {
     this.input.value = ''
   }
 
-  private handleKeyup(input: HTMLInputElement, event: KeyboardEvent): void {
+  private handleKeyup(event: KeyboardEvent): void {
     if (!['Enter', 'Comma'].includes(event.code)) {
       return
     }
 
-    const items = this.setItemsByValue(input.value)
+    const items = this.setItemsByValue(this.input.value)
     this.appendBlockForItems(items)
     this.resetInputValue()
   }
 
-  private handleFocusout(input: HTMLInputElement): void {
-    const items = this.setItemsByValue(input.value)
+  private handleFocusout(): void {
+    const items = this.setItemsByValue(this.input.value)
     this.appendBlockForItems(items)
     this.resetInputValue()
   }
 
-  private handlePaste(input: HTMLInputElement, event: ClipboardEvent): void {
+  private handlePaste(event: ClipboardEvent): void {
     event.preventDefault()
 
     if (!event.clipboardData) {
