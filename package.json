@@ -9,7 +9,7 @@
     "build": "webpack --mode production",
     "test": "jest ./src/**/*.test.ts",
     "test:coverage": "jest ./src/**/*.test.ts --coverage",
-    "prettier:fix": "prettier --write --list-different './*.js|./examples/**/*.{js,ts,tsx,sass,css,md}|./src/**/*.{js,ts,tsx,sass,css,md}'"
+    "prettier:fix": "prettier --write --list-different './*.js|docs/**/*.{js,ts,tsx,sass,css,md}|./src/**/*.{js,ts,tsx,sass,css,md}'"
   },
   "repository": {
     "type": "git",
