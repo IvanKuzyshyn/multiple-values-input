@@ -1,49 +1,39 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = {
-    entry: './src/index.ts',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        library: 'MultipleValuesInput',
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use: 'babel-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.ts(x)?$/,
-                loader: 'ts-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.sass|scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'postcss-loader',
-                    'sass-loader',
-                ]
-            }
-        ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin(),
+  entry: './src/index.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    library: 'MultipleValuesInput',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.ts(x)?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.sass|scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+      },
     ],
-    resolve: {
-        extensions: [
-            '.ts',
-            '.js'
-        ]
-    },
-    watchOptions: {
-        aggregateTimeout: 200,
-        poll: 1000
-    }
-};
+  },
+  plugins: [new MiniCssExtractPlugin()],
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  watchOptions: {
+    aggregateTimeout: 200,
+    poll: 1000,
+  },
+}
 
-module.exports = config;
+module.exports = config
