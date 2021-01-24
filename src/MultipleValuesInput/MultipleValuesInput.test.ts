@@ -76,23 +76,43 @@ describe('MultipleValuesInput', function () {
 
   describe('interaction', function () {
     it('adds new blocks', function () {
-      const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement)
+      const onChange = jest.fn()
+      const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement, { onChange })
       const input = screen.getByPlaceholderText('Enter item') as HTMLInputElement
       fireEvent.change(input, { target: { value: 'one' } })
       fireEvent.keyUp(input, { code: 'Enter' })
       expect(screen.getByText('one')).toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([
+        ['one', { valid: true }],
+      ])
       expect(input.value).toEqual('')
       fireEvent.change(input, { target: { value: 'two' } })
       fireEvent.keyUp(input, { code: 'Comma' })
       expect(screen.getByText('two')).toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([
+        ['one', { valid: true }],
+        ['two', { valid: true }],
+      ])
       expect(input.value).toEqual('')
       fireEvent.change(input, { target: { value: 'three' } })
       fireEvent.focusOut(input, {})
       expect(screen.getByText('three')).toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([
+        ['one', { valid: true }],
+        ['two', { valid: true }],
+        ['three', { valid: true }],
+      ])
       expect(input.value).toEqual('')
       fireEvent.paste(input, { clipboardData: { getData: () => 'four, five' } })
       expect(screen.getByText('four')).toBeInTheDocument()
       expect(screen.getByText('five')).toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([
+        ['one', { valid: true }],
+        ['two', { valid: true }],
+        ['three', { valid: true }],
+        ['four', { valid: true }],
+        ['five', { valid: true }],
+      ])
       expect(input.value).toEqual('')
 
       component.destroy()
@@ -135,20 +155,28 @@ describe('MultipleValuesInput', function () {
     })
 
     it('deletes blocks', function () {
+      const onChange = jest.fn()
       const values = ['one', 'two', 'three']
       const removingValues = [values[0], values[1]]
-      const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement, { values })
+      const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement, { values, onChange })
       values.forEach((value) => {
         expect(screen.getByText(value)).toBeInTheDocument()
       })
 
-      removingValues.forEach((value) => {
-        const block = screen.getByText(value).parentElement as HTMLDivElement
-        fireEvent.click(block.querySelector('button') as HTMLButtonElement)
-        expect(screen.queryByText(value)).not.toBeInTheDocument()
-      })
+      const firstBlock = screen.getByText(values[0]).parentElement as HTMLDivElement
+      fireEvent.click(firstBlock.querySelector('button') as HTMLButtonElement)
+      expect(screen.queryByText(values[0])).not.toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([
+        ['two', { valid: true }],
+        ['three', { valid: true }],
+      ])
+      const secondBlock = screen.getByText(values[1]).parentElement as HTMLDivElement
+      fireEvent.click(secondBlock.querySelector('button') as HTMLButtonElement)
+      expect(screen.queryByText(values[1])).not.toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([
+        ['three', { valid: true }],
+      ])
       expect(screen.getByText(values[2])).toBeInTheDocument()
-
       component.destroy()
     })
 

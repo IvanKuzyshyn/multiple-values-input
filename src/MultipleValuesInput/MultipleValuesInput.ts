@@ -9,7 +9,8 @@ type Validator = (item: string) => boolean
 type Options = {
   values: string[]
   validator: Validator
-  placeholder: string
+  placeholder: string,
+  onChange: (items: ItemsCollection) => any,
 }
 
 const PREFIX = 'MultipleValuesInput'
@@ -27,6 +28,7 @@ const DEFAULT_OPTIONS: Options = {
   values: [],
   validator: (item) => item.trim().length > 0,
   placeholder: 'Enter item',
+  onChange: () => {},
 }
 
 export class MultipleValuesInput {
@@ -53,6 +55,7 @@ export class MultipleValuesInput {
   public add(value: string | string[]) {
     const items = this.setItemsByValue(value)
     this.appendBlockForItems(items)
+    this.triggerOnChangeHandler()
   }
 
   public destroy() {
@@ -178,12 +181,14 @@ export class MultipleValuesInput {
 
     const items = this.setItemsByValue(this.input.value)
     this.appendBlockForItems(items)
+    this.triggerOnChangeHandler()
     this.resetInputValue()
   }
 
   private handleFocusout(): void {
     const items = this.setItemsByValue(this.input.value)
     this.appendBlockForItems(items)
+    this.triggerOnChangeHandler()
     this.resetInputValue()
   }
 
@@ -199,6 +204,7 @@ export class MultipleValuesInput {
       const values = data.split(',')
       const items = this.setItemsByValue(values)
       this.appendBlockForItems(items)
+      this.triggerOnChangeHandler()
       this.resetInputValue()
     } catch (e) {
       console.error(e)
@@ -218,6 +224,11 @@ export class MultipleValuesInput {
     if (block && value) {
       this.items.delete(value)
       this.container.removeChild(block)
+      this.triggerOnChangeHandler()
     }
+  }
+
+  private triggerOnChangeHandler() {
+    this.options.onChange(this.getItems())
   }
 }
