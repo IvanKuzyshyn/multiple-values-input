@@ -5,6 +5,7 @@ const emailsInput = new MultipleValuesInput(emailContainerNode, {
   values: ['john@miro.com', 'invalid.email', 'mike@miro.com', 'alexander@miro.com'],
   validator: (item) => emailRegExp.test(item),
   placeholder: 'add more people...',
+  onChange: (items) => console.log(items)
 })
 const addEmailBtn = document.querySelector('#add-email')
 const getEmailsCountBtn = document.querySelector('#get-emails-count')
