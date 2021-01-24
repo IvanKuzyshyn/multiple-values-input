@@ -5,7 +5,7 @@ const config = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'MultipleValuesInput.js',
     library: 'MultipleValuesInput',
   },
   module: {
@@ -26,7 +26,7 @@ const config = {
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [new MiniCssExtractPlugin({ filename: 'MultipleValuesInput.css' })],
   resolve: {
     extensions: ['.ts', '.js'],
   },
