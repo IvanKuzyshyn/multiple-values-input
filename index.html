@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ivan Kuzyshyn | Multiple Values Input usage examples</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700" rel="stylesheet" />
     <link rel="stylesheet" href="./dist/MultipleValuesInput.css">
     <style>
         * {
@@ -14,8 +14,16 @@
             font-size: 14px;
             display: flex;
             justify-content: center;
+            color: #050038;
         }
-
+        .title {
+            margin: 0 0 24px 0;
+            font-weight: 400;
+            font-size: 20px;
+        }
+        .title strong {
+            font-weight: 700;
+        }
         .container {
             display: flex;
             background-color: #FFFFFF;
@@ -68,7 +76,7 @@
     <div class="container">
         <div class="example">
             <div class="example-body">
-                <h1>Share Board name with others</h1>
+                <div class="title">Share <strong>Board name </strong> with others</div>
                 <div class="emails-wrapper">
                     <div id="emails-input"></div>
                 </div>
@@ -82,13 +90,13 @@
         </div>
         <div class="example">
             <div class="example-body">
-                <h1>IP addresses numbers example</h1>
+                <div class="title">IP addresses numbers example</div>
                 <div id="ip-addresses-input"></div>
             </div>
         </div>
         <div class="example">
             <div class="example-body">
-                <h1>Dynamic example</h1>
+                <div class="title">Dynamic example</div>
                 <div id="dynamic-input"></div>
             </div>
             <div class="example-footer">
