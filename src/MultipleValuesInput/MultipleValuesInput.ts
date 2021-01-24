@@ -121,7 +121,7 @@ export class MultipleValuesInput {
 
     text.textContent = value
 
-    removeBtn.innerHTML = '&#10005;'
+    removeBtn.innerHTML = '&times;'
     removeBtn.type = 'button'
 
     block.appendChild(text)

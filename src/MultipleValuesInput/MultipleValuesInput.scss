@@ -42,7 +42,7 @@ $red: #D92929;
     line-height: 24px;
     padding: 0;
 
-    &::placeholder {
+    &::placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder {
       color: $grey;
       font-size: 14px;
     }
@@ -83,11 +83,17 @@ $red: #D92929;
       outline: none;
       padding: 0;
       margin-left: 8px;
-      font-size: 10px;
-      line-height: 10px;
-      width: 8px;
-      height: 8px;
+      font-size: 16px;
+      line-height: 15px;
+      width: 8.5px;
       color: $black;
+      -webkit-appearance: button;
+      font-family: inherit;
+
+      &::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
 
       &:hover {
         cursor: pointer;
