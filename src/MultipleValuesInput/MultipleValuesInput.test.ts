@@ -1,4 +1,4 @@
-import { screen, fireEvent } from '@testing-library/dom'
+import { screen, fireEvent, getByText } from '@testing-library/dom'
 import { MultipleValuesInput } from './MultipleValuesInput'
 
 describe('MultipleValuesInput', function () {
@@ -28,7 +28,7 @@ describe('MultipleValuesInput', function () {
       expect(screen.getByTestId('root')).toBeInTheDocument()
     })
 
-    it('set event listeners when mounting', function() {
+    it('set event listeners when mounting', function () {
       const addEventListener = jest.spyOn(HTMLElement.prototype, 'addEventListener')
       const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement)
       expect(addEventListener).toHaveBeenCalledWith('click', expect.any(Function))
@@ -39,7 +39,7 @@ describe('MultipleValuesInput', function () {
       component.destroy()
     })
 
-    it('clears event listeners when unmounting', function() {
+    it('clears event listeners when unmounting', function () {
       const removeEventListener = jest.spyOn(HTMLElement.prototype, 'removeEventListener')
       const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement)
       component.destroy()
@@ -173,7 +173,7 @@ describe('MultipleValuesInput', function () {
     })
 
     it('handles error throwing while pasting value', function () {
-      const errorHandler = jest.spyOn(console, 'error')
+      const errorHandler = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
       const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement)
       const input = screen.getByPlaceholderText('Enter item') as HTMLInputElement
       const error = new Error('test')
@@ -248,6 +248,47 @@ describe('MultipleValuesInput', function () {
         ['three', { valid: true }],
       ])
       component.destroy()
+    })
+
+    describe('emails validator', function () {
+      it('correctly validates each email block', function () {
+        const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const correctEmails: string[] = [
+          'john@miro.com',
+          'mike@miro.com',
+          'alexander@miro.com',
+          'user.name+tag+sorting@example.com',
+          '1234567890123456789012345678901234567890123456789012345678901234+x@example.com',
+          'example-indeed@strange-example.inininini',
+          'fully-qualified-domain@example.com',
+          'disposable.style.email.with+symbol@example.com',
+          'abc@example.co.uk',
+        ]
+        const incorrectEmails: string[] = [
+          'invalid.email',
+          'Abc.example.com',
+          'A@b@c@example.com',
+          'this is"not\\allowed@example.com',
+        ]
+        const validator = (email: string) => emailRegExp.test(email)
+        const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement, {
+          validator,
+        })
+        component.add(correctEmails)
+        component.add(incorrectEmails)
+        ;[...correctEmails, ...incorrectEmails].forEach((email: string) => {
+          expect(screen.getByText(email)).toBeInTheDocument()
+        })
+        const items = component.getItems()
+        items.forEach(([item, properties]) => {
+          if (correctEmails.includes(item)) {
+            expect(properties.valid).toBeTruthy()
+          } else {
+            expect(properties.valid).toBeFalsy()
+          }
+        })
+        component.destroy()
+      })
     })
   })
 })
