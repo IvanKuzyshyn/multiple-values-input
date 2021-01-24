@@ -186,6 +186,10 @@ export class MultipleValuesInput {
   }
 
   private handleFocusout(): void {
+    if (this.input.value.length === 0) {
+      return
+    }
+
     const items = this.setItemsByValue(this.input.value)
     this.appendBlockForItems(items)
     this.triggerOnChangeHandler()

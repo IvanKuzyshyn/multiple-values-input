@@ -118,7 +118,21 @@ describe('MultipleValuesInput', function () {
       component.destroy()
     })
 
-    it('do not add blocks for not matching keys', function () {
+    it("doesn't add block if focus out on empty input", function() {
+      const onChange = jest.fn()
+      const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement, { onChange })
+      const input = screen.getByPlaceholderText('Enter item') as HTMLInputElement
+      fireEvent.change(input, { target: { value: 'one' } })
+      fireEvent.focusOut(input, {})
+      expect(screen.queryByText('one')).toBeInTheDocument()
+      expect(onChange).toHaveBeenCalledWith([['one', { valid: true }]])
+      expect(onChange).toHaveBeenCalledTimes(1)
+      fireEvent.change(input, { target: { value: '' } })
+      fireEvent.focusOut(input, {})
+      expect(onChange).toHaveBeenCalledTimes(1)
+    })
+
+    it("doesn't add blocks for not matching keys", function () {
       const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement)
       const input = screen.getByPlaceholderText('Enter item') as HTMLInputElement
       fireEvent.change(input, { target: { value: 'one' } })
