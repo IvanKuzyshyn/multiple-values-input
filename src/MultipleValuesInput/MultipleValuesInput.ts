@@ -131,6 +131,7 @@ export class MultipleValuesInput {
     items.forEach(([value, properties]) => {
       const block = this.createBlockElement(value, properties)
       this.input.parentNode?.insertBefore(block, this.input)
+      this.container.scrollTop = this.container.scrollHeight
     })
   }
 
