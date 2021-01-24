@@ -66,6 +66,7 @@ const input = new MultipleValuesInput(node, options)
 | values      | `string[]`                  | `[]`                             | Enables to set the initial list of blocks to the input, please consider input values will be automatically validated                                                                |
 | validator   | `(item: string) => boolean` | `item => item.trim().length > 0` | Enable to set items validator, can be use to create custom inputs behavior, like emails input, IP addresses input etc |
 | placeholder | `string`                    | `Enter item`                     | Enables to set custom placeholder for input field                                                                     |
+| onChange | `(items: Array<[string, {valid: boolean}]>) => any`                    | `() => {}`                     | Enables to changes handler which should be useful for different integrations                                                                     |
 
 ## Public API
 
