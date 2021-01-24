@@ -1,4 +1,4 @@
-import { screen, fireEvent, getByText } from '@testing-library/dom'
+import { screen, fireEvent } from '@testing-library/dom'
 import { MultipleValuesInput } from './MultipleValuesInput'
 
 describe('MultipleValuesInput', function () {
@@ -130,6 +130,7 @@ describe('MultipleValuesInput', function () {
       fireEvent.change(input, { target: { value: '' } })
       fireEvent.focusOut(input, {})
       expect(onChange).toHaveBeenCalledTimes(1)
+      component.destroy()
     })
 
     it("doesn't add blocks for not matching keys", function () {
@@ -171,7 +172,6 @@ describe('MultipleValuesInput', function () {
     it('deletes blocks', function () {
       const onChange = jest.fn()
       const values = ['one', 'two', 'three']
-      const removingValues = [values[0], values[1]]
       const component = new MultipleValuesInput(document.querySelector('#mount') as HTMLElement, { values, onChange })
       values.forEach((value) => {
         expect(screen.getByText(value)).toBeInTheDocument()
