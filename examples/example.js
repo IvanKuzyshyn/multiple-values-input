@@ -37,12 +37,10 @@ const toggleBtn = document.querySelector('#toggle-example')
 toggleBtn.addEventListener('click', (event) => {
 
     if (input) {
-    console.log('unmount!')
     event.target.textContent = 'Create'
       input.destroy()
       input = null
     } else {
-      console.log('mount!')
       event.target.textContent = 'Destroy'
       input = new MultipleValuesInput(dynamicNode)
     }
